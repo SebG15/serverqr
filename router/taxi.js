@@ -8,8 +8,9 @@ const md_upload = multiparty({uploadDir:"./uploads/taxis"});
 const api = express.Router();
 
 api.post("/taxi",[md_auth.asureAuth, md_upload], TaxiController.createTaxi);
-api.get("/taxis",[md_auth.asureAuth],TaxiController.getTaxis);
+api.get("/taxi",TaxiController.getTaxi);
 api.patch("/taxi/:id",[md_auth.asureAuth,md_upload],TaxiController.updateTaxi);
 api.delete("/taxi/:id",[md_auth.asureAuth],TaxiController.deleteTaxi);
+api.get("/taxi/:path",TaxiController.getTaxis)
 
 module.exports= api;

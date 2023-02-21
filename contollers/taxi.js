@@ -1,5 +1,6 @@
-const taxi = require("../models/taxi");
+const { query } = require("express");
 const Taxi = require("../models/taxi");
+
 const image = require("../utils/image")
 
 
@@ -21,25 +22,28 @@ async function createTaxi(req,res){
 
 }
 
-function getTaxis(req, res){
- // paginacion 
-    const {page=1, limit=10} = req.query;
-    const options = {
-        page:parseInt(page),
-        limit: parseInt(limit)
-    };
 
-    Taxi.paginate ({}, options,(error, taxis)=>{
+function getTaxi ( req, res){
+    const { page = 1, limit =10 } = req.query;
+
+    const options = {
+        page: parseInt(page),
+        limit: parseInt(limit),
+        sort: {created_at:"desc"},
+    };
+    Taxi.paginate({},options, (error, taxis)=>{
         if(error){
             res.status(400).send({msg:"Error al obtener los taxis"})
-        }else{
-            res.status(200).send(taxis);
+        } else{
+            res.status(200).send(taxis)
         }
 
     });
 
     
 }
+
+
 
 function updateTaxi(req, res){
     const {id} = req.params;
@@ -72,10 +76,26 @@ function deleteTaxi(req,res){
     });
 }
 
+function getTaxis(req,res){
+    const {path} = req.params;
+    Taxi.findOne({path}, (error, taxiStored) =>{
+        if(error){
+            res.status(500).send({msg:"Error en el server"})
+        } else if (!taxiStored){
+            res.status(400).send({msg:"No se encontró el usuario"})
+        } else{
+            res.status(200).send({taxiStored})
+        }
+
+    })
+}
+
 module.exports = {
     createTaxi,
-    getTaxis,
+    //getTaxis,
+    getTaxi,
     updateTaxi,
     deleteTaxi,
+    getTaxis
 
 };

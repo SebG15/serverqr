@@ -9,6 +9,7 @@ const TaxiSchema =mongoose.Schema({
 
     },
     empresa : String,
+    numeroInterno:String,
     conductor: String,
     activo : Boolean,
     foto : String,

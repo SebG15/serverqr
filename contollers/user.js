@@ -47,8 +47,6 @@ async function createUser(req, res){
         user.avatar = imagePath
         
     };
-
-
     
 
     user.save((err, userStored)=>{
