@@ -37,15 +37,24 @@ function register (req, res){
 function login(req,res){
     const {email, password}=req.body;
 
-    if(!email) res.status(400).send({msg:"El email es obligatorio"});
-    if(!password) res.status(400).send({msg:"Password requerido"});
+    //if(!email) res.status(400).send({msg:"El email es obligatorio"});
+    //if(!password) res.status(400).send({msg:"Password requerido"});
 
     const emailLowerCase =email.toLowerCase();
     
     User.findOne({email:emailLowerCase}, (err, userStorage)=>{
-        if(err){
+        // validacion de usuario no registrado
+        if (!userStorage){
+            res.status(400).send({msg:""})
+        }
+        else if(err){
+            
+            
             res.status(500).send({msg:"Error del servidor"})
-        } else{
+        } 
+        
+        
+        else{
             bcrypt.compare(password,userStorage.password, (bcryptError, check)=>{
 
                 if(bcryptError){

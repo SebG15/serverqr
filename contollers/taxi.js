@@ -6,10 +6,20 @@ const image = require("../utils/image")
 
 async function createTaxi(req,res){
     const taxi = new Taxi(req.body);
-    const imagePath = image.getFilePath(req.files.foto);
-    taxi.foto = imagePath;   
+    //const imagePath = image.getFilePath(req.files.foto);
+    //taxi.foto = imagePath;   
 
-    taxi.path = `QrTaxi-${imagePath.slice(6,14)}`;
+    //taxi.path = `QrTaxi-${imagePath.slice(6,14)}`;
+
+    if(req.files.foto){
+        const imagePath = image.getFilePath(req.files.foto);
+        taxi.foto = imagePath;   
+
+        taxi.path = `QrTaxi-${imagePath.slice(6,14)}`;
+        
+       
+        
+    };
 
     taxi.save((error,taxiStored)=>{
         if(error){
