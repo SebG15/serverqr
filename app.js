@@ -8,7 +8,6 @@ const app = express();
 // importar Rutas 
 const authRoutes = require("./router/auth");
 const userRoutes = require("./router/user")
-const menuRoutes = require("./router/menu");
 const taxiRoutes = require("./router/taxi")
 
 // Configuracion del body parser
@@ -26,7 +25,6 @@ app.use(cors());
 
 app.use(`/api/${API_VERSION}`,authRoutes);
 app.use(`/api/${API_VERSION}`,userRoutes);
-app.use(`/api/${API_VERSION}`,menuRoutes);
 app.use(`/api/${API_VERSION}`,taxiRoutes);
 
 module.exports = app;

@@ -1,4 +1,4 @@
-// en el curso esta es la seccion de cursos
+
 const mongoose = require("mongoose");
 const mongoosePaginate = require("mongoose-paginate");
 

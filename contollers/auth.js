@@ -3,11 +3,7 @@ const User = require("../models/user.js")
 const jwt = require("../utils/jwt")
 
 function register (req, res){
-    const{firstname,lastname,password,email} = req.body;
-    
-    if(!email) res.status(400).send({msg: "El email es obligatorio"});
-    if(!password) res.status(400).send({msg: "El password es obligatorio"});
-
+    const{firstname,lastname,password,email} = req.body;    
 
     const user = new User({
         firstname,
@@ -37,9 +33,6 @@ function register (req, res){
 function login(req,res){
     const {email, password}=req.body;
 
-    //if(!email) res.status(400).send({msg:"El email es obligatorio"});
-    //if(!password) res.status(400).send({msg:"Password requerido"});
-
     const emailLowerCase =email.toLowerCase();
     
     User.findOne({email:emailLowerCase}, (err, userStorage)=>{
@@ -47,8 +40,7 @@ function login(req,res){
         if (!userStorage){
             res.status(400).send({msg:""})
         }
-        else if(err){
-            
+        else if(err){            
             
             res.status(500).send({msg:"Error del servidor"})
         } 

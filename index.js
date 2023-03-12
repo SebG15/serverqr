@@ -8,7 +8,7 @@ const {
     DB_USER,DB_PASSWORD,DB_HOST,IP_SERVER,API_VERSION
 } = require("./constants");
 
-const PORT=5050;
+const PORT= process.env.PORT || 5050;
 
 mongoose.connect(
     `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/`,
